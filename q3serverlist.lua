@@ -212,8 +212,7 @@ Server Name                             Map Name            Players   Game Type
     local msg,fromaddr,fromport = client:receivefrom()
     -- Ignore any errors/timeouts
     if msg ~= nil then
-      -- Ensure packet begins with \255\255\255\255 and at least one more letter,
-      -- and doesn't contain a NUL character
+      -- Ensure packet begins with \255\255\255\255 and at least one more letter
       if msg:find("^\255\255\255\255%a") then
         --print("Valid packet from " .. fromaddr .. ":" .. fromport .. ", Length: " .. msg:len())
         msg = msg:sub(5)

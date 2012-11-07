@@ -58,7 +58,7 @@ function infoStringToTable(text)
       i = i + key:len()
       -- Strip the preceding backslash
       key = key:sub(2)
-      
+
       -- Now read the value for this key
       local value = text:match("^\\[^\\]*", i)
       if value ~= nil then
@@ -90,19 +90,19 @@ function printServer(server)
     svclients  = string.sub(server["clients"] .. "/" .. server["sv_maxclients"], 1, len3)
   end
   local svgametype = string.sub(server["gametype"] or "N/A", 1, len4)
-  
+
   io.write(svhostname)
   for i=1,len1-svhostname:len() do io.write(" ") end
   io.write(" ")
-  
+
   io.write(svmapname)
   for i=1,len2-svmapname:len() do io.write(" ") end
   io.write(" ")
-  
+
   io.write(svclients)
   for i=1,len3-svclients:len() do io.write(" ") end
   io.write(" ")
-  
+
   io.write(svgametype)
   for i=1,len4-svgametype:len() do io.write(" ") end
   io.write("\n")
@@ -113,21 +113,21 @@ function incomingGetServersResponse(msg, fromaddr, fromport)
   if fromaddr ~= destination or fromport ~= port then
     return
   end
-  
+
   -- Find first token
   local pos = string.find(msg, "\\", 1, true)
   if pos == nil then
     return
   end
-  
+
   msg = msg:sub(pos)
-  
+
   -- Parse all the servers
   for i=1,msg:len()-6,7 do
     if msg:sub(i,i) ~= "\\" then
       break
     end
-    
+
     local o1,o2,o3,o4,highport,lowport = string.byte(msg, i+1, i+6)
     if o1 and o2 and o3 and o4 and highport and lowport then
       local svaddr = o1 .. "." .. o2 .. "." .. o3 .. "." .. o4
@@ -151,7 +151,7 @@ end
 -- The start of the program
 function main()
   io.write("\n")
-  
+
   -- Ensure at least the hostname, port, and protocol is given
   if #arg < 3 then
     printUsage()
@@ -185,19 +185,19 @@ function main()
       return 1
     end
   end
-  
+
   -- Setup the UDP socket
   client = assert( socket.udp() )
   assert( client:settimeout(3) )
-  
+
   -- Construct the query packet
   local query = "\255\255\255\255getservers " .. protocol
   for i=1,#params do
     query = query .. " " .. params[i]
   end
-  
+
   destination = assert( socket.dns.toip(hostname) ) -- Resolve hostname to IP address for sending
-  
+
   io.write("Requesting servers from " .. hostname .. ":" .. port .. "...\n")
   assert( client:sendto(query, destination, port) ) -- Send the request
 
@@ -206,7 +206,7 @@ function main()
 Server Name                             Map Name            Players   Game Type
 -----------                             --------            -------   ---------
 ]])
-  
+
   -- Listen for replies from the master server and any game servers
   while true do
     local msg,fromaddr,fromport = client:receivefrom()

@@ -20,20 +20,22 @@ local destination -- Resolved IP address of the master server
 
 -- Print helpful usage information
 function printUsage()
-  io.write("Retrieves and displays a list of servers from a Quake III Arena compatible\n")
-  io.write("master server.\n")
-  io.write("\n")
-  io.write("Usage: q3serverlist <hostname> <port> <protocol> [params...]\n")
-  io.write("\n")
-  io.write("  hostname    Hostname of the master server to query.\n")
-  io.write("  port        Port of the master server to query.\n")
-  io.write("  protocol    Protocol number to use for the request.\n")
-  io.write("  params      Extra parameters to send to the master server.\n")
-  io.write("\n")
-  io.write("Example: q3serverlist masterjk3.ravensoft.com 29060 26\n")
-  io.write("         Retrieves all the Jedi Academy 1.01 servers from Ravensoft's official\n")
-  io.write("         master server.\n")
-  io.write("\n")
+  io.write([[
+Retrieves and displays a list of servers from a Quake III Arena compatible
+master server.
+
+Usage: q3serverlist <hostname> <port> <protocol> [params...]
+
+  hostname    Hostname of the master server to query.
+  port        Port of the master server to query.
+  protocol    Protocol number to use for the request.
+  params      Extra parameters to send to the master server.
+
+Example: q3serverlist masterjk3.ravensoft.com 29060 26
+         Retrieves all the Jedi Academy 1.01 servers from Ravensoft's official
+         master server.
+
+]])
 end
 
 -- Helper function to check whether the string 'str' starts with 'substr'
